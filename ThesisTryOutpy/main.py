@@ -84,7 +84,6 @@ while won==False:
     print("current state = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
-        z=0
     result.clear()
 
 
