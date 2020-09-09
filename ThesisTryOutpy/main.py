@@ -75,16 +75,18 @@ while won==False:
     print("result = "   + str(result))
 
     for i in state:
-      tempresult =tempcheckcode(guess,i)
+      tempresult =tempcheckcode(i,guess)
       if tempresult != result:
           state.remove(i)
       tempresult.clear()
-    guess=state[0]
     print("len of state = "+str(len(state)))
     print("current state = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
+    else:
+        guess = state[0]
     result.clear()
+
 
 
 
