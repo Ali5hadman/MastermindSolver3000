@@ -1,5 +1,5 @@
 import random
-import array
+
 
 def getcode():
     code=[]
@@ -69,8 +69,8 @@ won=False
 while won==False:
     c=c+1
     print("Turn"+str(c)+" ======================================")
-    print("code = "+str(code))
-    print("guess  = " + str(guess))
+    print("code =  "+str(code))
+    print("guess = " + str(guess))
     result=checkcode(code,guess)
     print("result = "   + str(result))
 
