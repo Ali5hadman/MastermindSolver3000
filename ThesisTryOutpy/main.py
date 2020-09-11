@@ -20,6 +20,8 @@ def checkcode(code,guess):
                     if guess[i]==code[j]:
                         result.append('W')
                         code[j]*=-1
+                        break
+
     for i in range(4):
         if guess[i]<0:
             guess[i]*=-1
@@ -28,7 +30,7 @@ def checkcode(code,guess):
     return result
 
 
-def createset():
+def createstate():
     state=[]
     for x in range(1, 7):
         for y in range(1, 7):
@@ -52,6 +54,8 @@ def tempcheckcode(code,guess):
                     if guess[i]==code[j]:
                         tempresult.append('W')
                         code[j]*=-1
+                        break
+
     for i in range(4):
         if guess[i]<0:
             guess[i]*=-1
@@ -61,7 +65,7 @@ def tempcheckcode(code,guess):
 
 
 
-state=createset()
+state=createstate()
 code= getcode()
 guess = [1,1,2,2]
 c=0
