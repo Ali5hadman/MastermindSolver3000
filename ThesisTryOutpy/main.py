@@ -66,6 +66,7 @@ def tempcheckcode(code,guess):
 
 
 state=createstate()
+allstate= createstate()
 code= getcode()
 guess = [1,1,2,2]
 c=0
@@ -77,17 +78,28 @@ while won==False:
     print("guess = " + str(guess))
     result=checkcode(code,guess)
     print("result = "   + str(result))
+    y= len(state)
 
     for i in state:
       tempresult =tempcheckcode(i,guess)
       if tempresult != result:
           state.remove(i)
       tempresult.clear()
+    x= len(state)
+    print('Number of codes eliminated = '+ str(y-x))
     print("len of state = "+str(len(state)))
     print("current state = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
     else:
+        numberofscore=0
+        for a in range(len(allstate)):
+            for b in range(len(state)):
+                resultscore=tempcheckcode(allstate[a], state[b])
+                if resultscore != []:
+                    numberofscore=numberofscore+1
+                    
+
         guess = state[0]
     result.clear()
 
