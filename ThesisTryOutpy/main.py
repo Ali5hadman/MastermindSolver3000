@@ -91,18 +91,30 @@ while won==False:
         won=True
     else:
         max=0
-        min=0
+        min=100
+        finalscore=[]
         result4score=[[],  ['W'],  ['W','W'],  ['W','W', 'W'], ['W','W', 'W','W'],  ['B'],  ['B','W'], ['B','W','W'],  ['B','W','W','W'], ['B','B'], ['B','B','W'], ['B','B','W','W'],['B','B','B'] ,['B','B','B','B']  ]
         score=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         for a in state:
             for b in allstate:
                 resultscore=tempcheckcode(a, b)   #code,guess
                 score[result4score.index(resultscore)] +=1
+            print(score)
+            for s in range(len(score)):
+                if max < score[s]:
+                    max = score[s]
+            finalscore.append([a,max])
+        score.clear()
+        for i in range(len(finalscore)):
+            if min > finalscore[i][1]:
+                min = finalscore[i][1]
+        for i in finalscore:
+            if min in finalscore:
+                guess=finalscore[0]
 
-            if max < max(score) :
-                max = max(score)
-                finalscore= [a,max]
-    if min > finalscore[1]:
+
+
+
         
 
 
@@ -113,7 +125,7 @@ while won==False:
 
 
 
-        guess = state[0]
+
 
 
 
