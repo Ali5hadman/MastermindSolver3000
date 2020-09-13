@@ -1,5 +1,5 @@
 import random
-import array
+
 
 def getcode():
     code=[]
@@ -20,6 +20,8 @@ def checkcode(code,guess):
                     if guess[i]==code[j]:
                         result.append('W')
                         code[j]*=-1
+                        break
+
     for i in range(4):
         if guess[i]<0:
             guess[i]*=-1
@@ -28,7 +30,7 @@ def checkcode(code,guess):
     return result
 
 
-def createset():
+def createstate():
     state=[]
     for x in range(1, 7):
         for y in range(1, 7):
@@ -52,6 +54,8 @@ def tempcheckcode(code,guess):
                     if guess[i]==code[j]:
                         tempresult.append('W')
                         code[j]*=-1
+                        break
+
     for i in range(4):
         if guess[i]<0:
             guess[i]*=-1
@@ -61,7 +65,8 @@ def tempcheckcode(code,guess):
 
 
 
-state=createset()
+state=createstate()
+allstate= createstate()
 code= getcode()
 guess = [1,1,2,2]
 c=0
@@ -69,22 +74,27 @@ won=False
 while won==False:
     c=c+1
     print("Turn"+str(c)+" ======================================")
-    print("code = "+str(code))
-    print("guess  = " + str(guess))
+    print("code =  "+str(code))
+    print("guess = " + str(guess))
     result=checkcode(code,guess)
     print("result = "   + str(result))
+    y= len(state)
 
     for i in state:
-      tempresult =tempcheckcode(guess,i)
+      tempresult =tempcheckcode(i,guess)
       if tempresult != result:
           state.remove(i)
       tempresult.clear()
-    guess=state[0]
+    x= len(state)
+    print('Number of codes eliminated = '+ str(y-x))
     print("len of state = "+str(len(state)))
     print("current state = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
+    else:
+        guess = state[0]
     result.clear()
+
 
 
 
