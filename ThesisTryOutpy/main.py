@@ -74,6 +74,7 @@ def findmin(maxscore):
 
 
 def nextguess():
+    listofmaxes=[]
     min = 1000000
     max=0
     maxscore = []
@@ -90,20 +91,34 @@ def nextguess():
             if max < score[s]:
                 max = score[s]
         maxscore.append([a, max])
+        listofmaxes.append(max)
+
+
 
         score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         max=0
+    sum=0
+    for m in range(len(listofmaxes)):
+        sum = sum + listofmaxes[m]
+    avg = sum/len(listofmaxes)
     print('the max scores are '+ str(maxscore))
-    min=findmin(maxscore)
-    print('the min is '+str(min))
-    for i in range(len(maxscore)):
-        if min == maxscore[i][1]:
-            nextg = maxscore[i]
-            break
-    nextguesss=nextg[0]
-    print('the final result is '+ str(nextg))
-    print('the next guess is '+ str(nextguesss))
-    return nextguesss
+    print('the max values are '+str(listofmaxes))
+    print('the avg will be '+str(avg))
+
+
+
+
+
+    # min=findmin(maxscore)
+    # print('the min is '+str(min))
+    # for i in range(len(maxscore)):
+    #     if min == maxscore[i][1]:
+    #         nextg = maxscore[i]
+    #         break
+    # nextguesss=nextg[0]
+    # print('the final result is '+ str(nextg))
+    # print('the next guess is '+ str(nextguesss))
+    # return nextguesss
 
 
 
