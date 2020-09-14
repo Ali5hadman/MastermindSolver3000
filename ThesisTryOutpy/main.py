@@ -64,6 +64,54 @@ def tempcheckcode(code,guess):
     return tempresult
 
 
+def findmin(maxscore):
+    min = 1000000
+    for i in range(len(maxscore)):
+        if min > maxscore[i][1]:
+            min = maxscore[i][1]
+    return min
+
+
+
+def nextguess():
+    min = 1000000
+    max=0
+    maxscore = []
+    result4score = [[], ['W'], ['W', 'W'], ['W', 'W', 'W'], ['W', 'W', 'W', 'W'], ['B'], ['B', 'W'], ['B', 'W', 'W'],
+                    ['B', 'W', 'W', 'W'], ['B', 'B'], ['B', 'B', 'W'], ['B', 'B', 'W', 'W'], ['B', 'B', 'B'],
+                    ['B', 'B', 'B', 'B']]
+    score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for a in state:
+        for b in allstate:
+            resultscore = tempcheckcode(a, b)  # code,guess
+            score[result4score.index(resultscore)] += 1
+
+        for s in range(len(score)):
+            if max < score[s]:
+                max = score[s]
+        maxscore.append([a, max])
+
+        score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        max=0
+    print('the max scores are '+ str(maxscore))
+    min=findmin(maxscore)
+    print('the min is '+str(min))
+    for i in range(len(maxscore)):
+        if min == maxscore[i][1]:
+            nextg = maxscore[i]
+            break
+    nextguesss=nextg[0]
+    print('the final result is '+ str(nextg))
+    print('the next guess is '+ str(nextguesss))
+    return nextguesss
+
+
+
+
+
+
+
+
 
 state=createstate()
 allstate= createstate()
@@ -71,84 +119,25 @@ code= getcode()
 guess = [1,1,2,2]
 c=0
 won=False
-while won==False:
+while won == False:
+    state.remove(guess)
     c=c+1
     print("Turn"+str(c)+" ======================================")
     print("code =  "+str(code))
     print("guess = " + str(guess))
     result=checkcode(code,guess)
     print("result = "   + str(result))
-    y= len(state)
 
     for i in state:
       tempresult =tempcheckcode(i,guess)
       if tempresult != result:
           state.remove(i)
-    x= len(state)
     print("len of state = "+str(len(state)))
     print("current state = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
     else:
-        max=0
-        min=100
-        finalscore=[]
-        result4score=[[],  ['W'],  ['W','W'],  ['W','W', 'W'], ['W','W', 'W','W'],  ['B'],  ['B','W'], ['B','W','W'],  ['B','W','W','W'], ['B','B'], ['B','B','W'], ['B','B','W','W'],['B','B','B'] ,['B','B','B','B']  ]
-        score=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        for a in state:
-            for b in allstate:
-                resultscore=tempcheckcode(a, b)   #code,guess
-                score[result4score.index(resultscore)] +=1
-            print(score)
-            for s in range(len(score)):
-                if max < score[s]:
-                    max = score[s]
-            finalscore.append([a,max])
-        score.clear()
-        for i in range(len(finalscore)):
-            if min > finalscore[i][1]:
-                min = finalscore[i][1]
-        for i in finalscore:
-            if min in finalscore:
-                guess=finalscore[0]
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        guess= nextguess()
 
 
 
