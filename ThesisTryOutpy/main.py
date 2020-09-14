@@ -84,7 +84,10 @@ def nextguess():
     score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for a in allstate:
         for b in state:
+            #print('the A values will be ' + str(a))
+            #print('thr B value will be : '+ str(b))
             resultscore = tempcheckcode(b, a)  # code,guess
+            #print("resul code: " +str(resultscore))
             score[result4score.index(resultscore)] += 1
 
         for s in range(len(score)):
@@ -100,7 +103,7 @@ def nextguess():
 
 
     #print('the max scores are '+ str(maxscore))
-    #print('the listofmax values are '+str(listofmaxes))
+    print('the listofmax values are '+str(listofmaxes))
 
     min=findmin(maxscore)
     #print('the min is '+str(min))
