@@ -72,7 +72,7 @@ def findmin(maxscore):
     return min
 
 
-
+    ##################################################################    ##################################################################
 def nextguess():
     listofmaxes=[]
     min = 1000000
@@ -82,9 +82,9 @@ def nextguess():
                     ['B', 'W', 'W', 'W'], ['B', 'B'], ['B', 'B', 'W'], ['B', 'B', 'W', 'W'], ['B', 'B', 'B'],
                     ['B', 'B', 'B', 'B']]
     score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for a in state:
-        for b in allstate:
-            resultscore = tempcheckcode(a, b)  # code,guess
+    for a in allstate:
+        for b in state:
+            resultscore = tempcheckcode(b, a)  # code,guess
             score[result4score.index(resultscore)] += 1
 
         for s in range(len(score)):
@@ -97,33 +97,26 @@ def nextguess():
 
         score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         max=0
-    sum=0
-    for m in range(len(listofmaxes)):
-        sum = sum + listofmaxes[m]
-    avg = sum/len(listofmaxes)
-    print('the max scores are '+ str(maxscore))
-    print('the max values are '+str(listofmaxes))
-    print('the avg will be '+str(avg))
+
+
+    #print('the max scores are '+ str(maxscore))
+    #print('the listofmax values are '+str(listofmaxes))
+
+    min=findmin(maxscore)
+    #print('the min is '+str(min))
+    for i in range(len(maxscore)):
+        if min == maxscore[i][1]:
+            nextg = maxscore[i]
+            break
+    nextguesss=nextg[0]
+    #print('the final result is '+ str(nextg))
+    #print('the next guess is '+ str(nextguesss))
+    return nextguesss
 
 
 
 
-
-    # min=findmin(maxscore)
-    # print('the min is '+str(min))
-    # for i in range(len(maxscore)):
-    #     if min == maxscore[i][1]:
-    #         nextg = maxscore[i]
-    #         break
-    # nextguesss=nextg[0]
-    # print('the final result is '+ str(nextg))
-    # print('the next guess is '+ str(nextguesss))
-    # return nextguesss
-
-
-
-
-
+    ##################################################################    ##################################################################v
 
 
 
@@ -153,7 +146,22 @@ while won == False:
     if result == ['B','B','B','B']:
         won=True
     else:
-        guess= nextguess()
+        guess1= nextguess()
+        findnextguess = False
+        while findnextguess == False:
+            if guess1 not in state:
+                allstate.remove(guess1)
+                guess1=nextguess()
+            else:
+                guess=guess1
+                findnextguess=True
+
+
+
+
+
+
+
 
 
 
