@@ -102,11 +102,11 @@ def nextguess():
         max=0
 
 
-    #print('the max scores are '+ str(maxscore))
+    print('the max scores are '+ str(maxscore))
     print('the listofmax values are '+str(listofmaxes))
 
     min=findmin(maxscore)
-    #print('the min is '+str(min))
+    print('the min is '+str(min))
     for i in range(len(maxscore)):
         if min == maxscore[i][1]:
             nextg = maxscore[i]
@@ -127,7 +127,9 @@ def nextguess():
 state=createstate()
 allstate= createstate()
 code= getcode()
+code = [2, 1, 4, 4]
 guess = [1,1,2,2]
+
 c=0
 won=False
 while won == False:
