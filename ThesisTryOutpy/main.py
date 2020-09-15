@@ -58,11 +58,11 @@ def nextguess():
                     ['B', 'W', 'W', 'W'], ['B', 'B'], ['B', 'B', 'W'], ['B', 'B', 'W', 'W'], ['B', 'B', 'B'],
                     ['B', 'B', 'B', 'B']]
     score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for a in range(len(state)):
-        for b in range(len(allstate)):
+    for a in range(len(allstate)):
+        for b in range(len(state)):
             #print('the A values will be :' + str(a))
             #print('thr B value will be : '+ str(b))
-            resultscore = checkcode(state[a], allstate[b])  # code,guess
+            resultscore = checkcode(state[b], allstate[a])  # code,guess
             #print("resul code: " +str(resultscore))
             score[result4score.index(resultscore)] += 1
             #print('score = ' + str(score))
@@ -70,7 +70,7 @@ def nextguess():
         for s in range(len(score)):
             if max < score[s]:
                 max = score[s]
-        maxscore.append([state[a], max])
+        maxscore.append([allstate[a], max])
 
         score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         max=0
@@ -86,7 +86,12 @@ def nextguess():
         if min == maxscore[i][1]:
             nextg.append(maxscore[i])
     nextguesss=nextg[0][0]
-    print('the final result is '+ str(nextg))
+    #print('the final result is '+ str(nextg))
+
+    for i in range(len(nextg)):
+        if nextg[i][0] in state:
+            nextguesss=nextg[i][0]
+            break
 
     #return nextg
     return nextguesss
@@ -103,17 +108,12 @@ def nextguess():
 state=createstate()
 allstate= createstate()
 code= getcode()
-#code =[3, 4, 5, 2]
-code =[6, 5, 4, 3]
-
 guess = [1,1,2,2]
 
 
 c=0
 won=False
 while won == False:
-    state.remove(guess)
-    allstate.remove(guess)
     c=c+1
     print("Turn"+str(c)+" ======================================")
     print("code =  "+str(code))
@@ -132,18 +132,8 @@ while won == False:
 
     #print('len of counter = ' + str(len(counter)))
     #print("len of state = "+str(len(state)))
-    print("current states left = "+ str(state))
+    #print("current states left = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
     else:
         guess=nextguess()
-
-
-        # possguesses=nextguess()
-        # for i in range(len(possguesses)):
-        #     if possguesses[i][0] in allstate:
-        #             guess=possguesses[i][0]
-
-
-
-
