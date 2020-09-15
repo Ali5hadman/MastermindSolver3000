@@ -29,7 +29,7 @@ def checkcode(code,guess):
             code[i]*=-1
     return result
 
-
+#itertools
 def createstate():
     state=[]
     for x in range(1, 7):
@@ -37,31 +37,8 @@ def createstate():
             for z in range(1, 7):
                 for q in range(1, 7):
                     state.append([x, y, z, q])
-    x=len(state)
-    print(x)
     return state
 
-def tempcheckcode(code,guess):
-    tempresult=[]
-    for i in range (4):
-            if guess[i] == code[i]:
-                tempresult.append('B')
-                code[i] *= -1
-                guess[i] *= -1
-    for i in range(4):
-        if guess[i]>0:
-             for j in range(4):
-                    if guess[i]==code[j]:
-                        tempresult.append('W')
-                        code[j]*=-1
-                        break
-
-    for i in range(4):
-        if guess[i]<0:
-            guess[i]*=-1
-        if code[i]<0:
-            code[i]*=-1
-    return tempresult
 
 
 def findmin(maxscore):
@@ -75,28 +52,25 @@ def findmin(maxscore):
     ##################################################################    ##################################################################
 def nextguess():
     listofmaxes=[]
-    min = 1000000
     max=0
     maxscore = []
     result4score = [[], ['W'], ['W', 'W'], ['W', 'W', 'W'], ['W', 'W', 'W', 'W'], ['B'], ['B', 'W'], ['B', 'W', 'W'],
                     ['B', 'W', 'W', 'W'], ['B', 'B'], ['B', 'B', 'W'], ['B', 'B', 'W', 'W'], ['B', 'B', 'B'],
                     ['B', 'B', 'B', 'B']]
     score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for a in allstate:
-        for b in state:
-            #print('the A values will be ' + str(a))
+    for a in range(len(state)):
+        for b in range(len(allstate)):
+            #print('the A values will be :' + str(a))
             #print('thr B value will be : '+ str(b))
-            resultscore = tempcheckcode(b, a)  # code,guess
+            resultscore = checkcode(state[a], allstate[b])  # code,guess
             #print("resul code: " +str(resultscore))
             score[result4score.index(resultscore)] += 1
+            #print('score = ' + str(score))
 
         for s in range(len(score)):
             if max < score[s]:
                 max = score[s]
-        maxscore.append([a, max])
-        listofmaxes.append(max)
-
-
+        maxscore.append([state[a], max])
 
         score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         max=0
@@ -112,8 +86,9 @@ def nextguess():
         if min == maxscore[i][1]:
             nextg.append(maxscore[i])
     nextguesss=nextg[0][0]
-    #print('the final result is '+ str(nextg))
-    #print('the next guess is '+ str(nextguesss))
+    print('the final result is '+ str(nextg))
+
+    #return nextg
     return nextguesss
 
 
@@ -124,11 +99,15 @@ def nextguess():
 
 
 
+
 state=createstate()
 allstate= createstate()
 code= getcode()
-#code = [2, 1, 4, 4]
+#code =[3, 4, 5, 2]
+code =[6, 5, 4, 3]
+
 guess = [1,1,2,2]
+
 
 c=0
 won=False
@@ -141,51 +120,29 @@ while won == False:
     print("guess = " + str(guess))
     result=checkcode(code,guess)
     print("result = "   + str(result))
+    counter=[]
+    for i in range(len(state)):
+        tempresult =checkcode(state[i],guess)
+        if tempresult != result:
+            counter.append(state[i])
 
-    for i in state:
-      tempresult =tempcheckcode(i,guess)
-      if tempresult != result:
-          state.remove(i)
-    print("len of state = "+str(len(state)))
-    print("current state = "+ str(state))
+    for i in range(len(counter)):
+        state.remove(counter[i])
+
+
+    #print('len of counter = ' + str(len(counter)))
+    #print("len of state = "+str(len(state)))
+    print("current states left = "+ str(state))
     if result == ['B','B','B','B']:
         won=True
     else:
-        guess1 = nextguess()
-        findnextguess = False
-        while findnextguess == False:
-            if guess1 not in state:
-                allstate.remove(guess1)
-                guess1=nextguess()
-            else:
-                guess=guess1
-                findnextguess=True
+        guess=nextguess()
 
 
-
-
-
-        # findnextguess = False
-        # while findnextguess == False:
-        #     guess1 = nextguess()
-        #     for i in range(len(guess1)):
-        #         if guess1[i][0] in state:
-        #             guess = guess1[i][0]
-        #             findnextguess = True
-        #         else:
-        #             allstate.remove(guess1[i][0])
-
-
-
-
-
-
-
-
-
-
-
-
+        # possguesses=nextguess()
+        # for i in range(len(possguesses)):
+        #     if possguesses[i][0] in allstate:
+        #             guess=possguesses[i][0]
 
 
 
