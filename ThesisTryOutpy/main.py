@@ -54,17 +54,19 @@ def nextguess():
     listofmaxes=[]
     max=0
     maxscore = []
-    result4score = [[], ['W'], ['W', 'W'], ['W', 'W', 'W'], ['W', 'W', 'W', 'W'], ['B'], ['B', 'W'], ['B', 'W', 'W'],
-                    ['B', 'W', 'W', 'W'], ['B', 'B'], ['B', 'B', 'W'], ['B', 'B', 'W', 'W'], ['B', 'B', 'B'],
-                    ['B', 'B', 'B', 'B']]
-    score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    result4score = []
+    score = []
     for a in range(len(allstate)):
         for b in range(len(state)):
             #print('the A values will be :' + str(a))
             #print('thr B value will be : '+ str(b))
             resultscore = checkcode(state[b], allstate[a])  # code,guess
             #print("resul code: " +str(resultscore))
-            score[result4score.index(resultscore)] += 1
+            if resultscore in result4score:
+             score[result4score.index(resultscore)] += 1
+            else:
+                result4score.append(resultscore)
+                score.append(1)
             #print('score = ' + str(score))
 
         for s in range(len(score)):
